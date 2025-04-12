@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
@@ -17,9 +16,7 @@ const Game: React.FC = () => {
   const navigate = useNavigate();
   const { gameId: urlGameId } = useParams<{ gameId: string }>();
   
-  // Handle WebSocket connection
   useEffect(() => {
-    // For development, we're using a simulated WebSocket
     WebSocketService
       .onConnect(() => {
         setIsConnected(true);
@@ -28,7 +25,6 @@ const Game: React.FC = () => {
           description: "You're ready to play!",
         });
         
-        // If there's a game ID in the URL, join that game
         if (urlGameId) {
           joinGame(urlGameId);
         }
@@ -61,7 +57,6 @@ const Game: React.FC = () => {
         });
       });
     
-    // Connect to WebSocket (or simulate connection for development)
     WebSocketService.simulateConnection();
     
     return () => {
@@ -69,30 +64,20 @@ const Game: React.FC = () => {
     };
   }, [toast, urlGameId]);
   
-  // Create a new online game
   const createGame = () => {
     setIsLocalGame(false);
     setWaitingForOpponent(true);
     
-    // Simulate creating a game for development
     const gameId = WebSocketService.simulateCreateGame();
-    
-    // Update the URL without reloading the page
     navigate(`/game/${gameId}`);
   };
   
-  // Join an existing game
   const joinGame = (gameId: string) => {
     setIsLocalGame(false);
-    
-    // Simulate joining a game for development
     WebSocketService.simulateJoinGame(gameId);
-    
-    // Update the URL without reloading the page
     navigate(`/game/${gameId}`);
   };
   
-  // Start a local game (no WebSocket connection)
   const startLocalGame = () => {
     setIsLocalGame(true);
     setGameState({
@@ -103,18 +88,15 @@ const Game: React.FC = () => {
     });
   };
   
-  // Handle cell click
   const handleCellClick = (index: number) => {
     if (!gameState || gameState.board[index] !== null || gameState.winner) {
       return;
     }
     
     if (isLocalGame) {
-      // For local games, update the state directly
       const newBoard = [...gameState.board];
       newBoard[index] = gameState.currentPlayer;
       
-      // Check for winner
       const winner = checkWinner(newBoard);
       const isDraw = !winner && newBoard.every(cell => cell !== null);
       
@@ -125,8 +107,6 @@ const Game: React.FC = () => {
         gameId: gameState.gameId,
       });
     } else {
-      // For online games, send the move to the WebSocket server
-      // Only allow if it's this player's turn
       if (gameState.playerSymbol === gameState.currentPlayer) {
         WebSocketService.simulateMakeMove(
           index, 
@@ -134,7 +114,6 @@ const Game: React.FC = () => {
           gameState
         );
       } else {
-        // If it's not the player's turn, show a toast message
         toast({
           title: "Not your turn",
           description: "Please wait for your opponent to make a move",
@@ -143,7 +122,6 @@ const Game: React.FC = () => {
     }
   };
   
-  // Reset the game
   const resetGame = () => {
     setGameState(null);
     setWaitingForOpponent(false);
@@ -151,7 +129,6 @@ const Game: React.FC = () => {
     navigate("/game");
   };
   
-  // Check for a winner
   const checkWinner = (board: Array<"X" | "O" | null>): "X" | "O" | null => {
     const winPatterns = [
       [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows

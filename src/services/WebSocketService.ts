@@ -1,4 +1,3 @@
-
 export type GameMove = {
   index: number;
   player: "X" | "O";
@@ -207,6 +206,12 @@ class WebSocketService {
   // Simulate making a move
   simulateMakeMove(index: number, player: "X" | "O", gameState: GameState) {
     console.log("Simulating move:", index, player);
+    
+    // Only allow moves by the current player
+    if (player !== gameState.currentPlayer) {
+      console.log("Not your turn!");
+      return;
+    }
     
     const newBoard = [...gameState.board];
     newBoard[index] = player;

@@ -22,8 +22,13 @@ const TicTacToeBoard: React.FC<TicTacToeBoardProps> = ({
   const getCellClasses = (index: number) => {
     const isOccupied = board[index] !== null;
     const isWinningCell = false; // TODO: Implement highlighting winning cells
+    
+    // For local games, both X and O can take turns
+    // For online games, a player can only make a move if it's their turn
+    const isMyTurn = playerSymbol === currentPlayer;
+    const isLocalGame = playerSymbol === undefined;
     const isPlayable = !isOccupied && !winner && !disabled && 
-      (localPlayer === undefined || localPlayer === currentPlayer || playerSymbol === currentPlayer);
+      (isLocalGame || isMyTurn);
 
     return `board-cell w-full h-full aspect-square ${
       isOccupied ? "occupied" : ""
@@ -44,8 +49,8 @@ const TicTacToeBoard: React.FC<TicTacToeBoardProps> = ({
 
   // Determine if the cell is clickable
   const isCellClickable = (index: number) => {
-    // In local game or if it's this player's turn in online game
-    const isMyTurn = playerSymbol === undefined || playerSymbol === currentPlayer;
+    const isLocalGame = playerSymbol === undefined;
+    const isMyTurn = isLocalGame || playerSymbol === currentPlayer;
     
     return (
       !winner &&
