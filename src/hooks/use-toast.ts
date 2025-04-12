@@ -1,12 +1,13 @@
 
-import { UseToastProps } from "@radix-ui/react-toast";
+import { type ToastProps } from "@radix-ui/react-toast"
 import {
   useToast as useToastShadcn,
-  toast as toastFunction
-} from "@/components/ui/toast";
+  toast as toastFunction,
+  type ToastProps as ShadcnToastProps
+} from "@/components/ui/toast"
 
 // Re-export the toast function and types
-export const toast = toastFunction;
-export const useToast = useToastShadcn;
+export const toast = toastFunction
+export const useToast = useToastShadcn
 
-export type { UseToastProps };
+export type { ShadcnToastProps as UseToastProps }

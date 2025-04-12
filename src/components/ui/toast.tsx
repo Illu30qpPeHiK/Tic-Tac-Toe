@@ -1,3 +1,4 @@
+
 import * as React from "react"
 import * as ToastPrimitives from "@radix-ui/react-toast"
 import { cva, type VariantProps } from "class-variance-authority"
@@ -110,20 +111,23 @@ const ToastDescription = React.forwardRef<
 ))
 ToastDescription.displayName = ToastPrimitives.Description.displayName
 
-type ToastProps = React.ComponentPropsWithoutRef<typeof Toast>
+type ToastProps = React.ComponentPropsWithoutRef<typeof Toast> & {
+  title?: React.ReactNode
+  description?: React.ReactNode
+  action?: React.ReactNode
+}
 
 type ToastActionElement = React.ReactElement<typeof ToastAction>
 
-// Add this section at the end of the file
 // Toast provider hook
 export const useToast = () => {
   const [toasts, setToasts] = React.useState<ToastProps[]>([])
 
-  const toast = React.useCallback(({ ...props }: ToastProps) => {
+  const toast = ({ title, description, action, ...props }: ToastProps) => {
     const id = Math.random().toString(36).substring(2, 9)
-    setToasts((prevToasts) => [...prevToasts, { id, ...props }])
+    setToasts((prevToasts) => [...prevToasts, { id, title, description, action, ...props }])
     return id
-  }, [])
+  }
 
   const dismiss = React.useCallback((toastId?: string) => {
     setToasts((prevToasts) => 
@@ -140,6 +144,19 @@ export const useToast = () => {
   }
 }
 
-export { type ToastProps, type ToastActionElement, ToastProvider, ToastViewport, Toast, ToastTitle, ToastDescription, ToastClose, ToastAction }
+// Export named toast function
+export const toast = (props: ToastProps) => {
+  return useToast().toast(props)
+}
 
-const toast = useToast().toast
+export { 
+  type ToastProps, 
+  type ToastActionElement, 
+  ToastProvider, 
+  ToastViewport, 
+  Toast, 
+  ToastTitle, 
+  ToastDescription, 
+  ToastClose, 
+  ToastAction 
+}
