@@ -1,5 +1,6 @@
 
 import React from "react";
+import { Link } from "react-router-dom";
 import { GameState } from "@/services/WebSocketService";
 import { X, Circle, Clock, Trophy, RefreshCw } from "lucide-react";
 
