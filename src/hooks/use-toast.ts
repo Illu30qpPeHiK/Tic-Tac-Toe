@@ -1,9 +1,12 @@
 
-// Re-export the useToast hook from @/components/ui/use-toast for easy access
-import { useToast as useToastOriginal } from "@/components/ui/use-toast";
+import { UseToastProps } from "@radix-ui/react-toast";
+import {
+  useToast as useToastShadcn,
+  toast as toastFunction
+} from "@/components/ui/toast";
 
-// Re-export the toast function and toast type
-export const { toast } = useToastOriginal;
+// Re-export the toast function and types
+export const toast = toastFunction;
+export const useToast = useToastShadcn;
 
-// Export the hook
-export const useToast = useToastOriginal;
+export type { UseToastProps };

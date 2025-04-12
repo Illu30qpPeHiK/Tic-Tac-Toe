@@ -114,14 +114,32 @@ type ToastProps = React.ComponentPropsWithoutRef<typeof Toast>
 
 type ToastActionElement = React.ReactElement<typeof ToastAction>
 
-export {
-  type ToastProps,
-  type ToastActionElement,
-  ToastProvider,
-  ToastViewport,
-  Toast,
-  ToastTitle,
-  ToastDescription,
-  ToastClose,
-  ToastAction,
+// Add this section at the end of the file
+// Toast provider hook
+export const useToast = () => {
+  const [toasts, setToasts] = React.useState<ToastProps[]>([])
+
+  const toast = React.useCallback(({ ...props }: ToastProps) => {
+    const id = Math.random().toString(36).substring(2, 9)
+    setToasts((prevToasts) => [...prevToasts, { id, ...props }])
+    return id
+  }, [])
+
+  const dismiss = React.useCallback((toastId?: string) => {
+    setToasts((prevToasts) => 
+      toastId
+        ? prevToasts.filter((toast) => toast.id !== toastId)
+        : []
+    )
+  }, [])
+
+  return {
+    toast,
+    dismiss,
+    toasts,
+  }
 }
+
+export { type ToastProps, type ToastActionElement, ToastProvider, ToastViewport, Toast, ToastTitle, ToastDescription, ToastClose, ToastAction }
+
+const toast = useToast().toast
