@@ -29,7 +29,7 @@ class WebSocketService {
     onError?: (error: string) => void;
   } = {};
 
-  connect(url: string = "wss://tic-tac-toe-ws.lovable.dev") {
+  connect(url: string = "wss://tic-tac-toe-ws") {
     if (this.socket) {
       return;
     }
