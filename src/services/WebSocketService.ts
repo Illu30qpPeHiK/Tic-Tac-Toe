@@ -179,7 +179,7 @@ class WebSocketService {
         currentPlayer: "X",
         winner: null,
         gameId,
-        playerSymbol: "X"
+        playerSymbol: "X"  // Creator is always X and goes first
       });
     }, 500);
     
@@ -193,11 +193,14 @@ class WebSocketService {
     setTimeout(() => {
       this.callbacks.onGameState?.({
         board: Array(9).fill(null),
-        currentPlayer: "X",
+        currentPlayer: "X", // X always goes first
         winner: null,
         gameId,
-        playerSymbol: "O"
+        playerSymbol: "O"  // Joiner is always O and waits for X
       });
+      
+      // Notify that a second player joined
+      this.callbacks.onPlayerJoined?.(gameId);
     }, 500);
   }
   

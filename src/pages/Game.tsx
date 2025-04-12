@@ -42,6 +42,7 @@ const Game: React.FC = () => {
         });
       })
       .onGameState((newGameState) => {
+        console.log("New game state received:", newGameState);
         setGameState(newGameState);
         setWaitingForOpponent(false);
       })
@@ -77,7 +78,7 @@ const Game: React.FC = () => {
     const gameId = WebSocketService.simulateCreateGame();
     
     // Update the URL without reloading the page
-    navigate(`/game/${gameId}`, { replace: true });
+    navigate(`/game/${gameId}`);
   };
   
   // Join an existing game
@@ -88,7 +89,7 @@ const Game: React.FC = () => {
     WebSocketService.simulateJoinGame(gameId);
     
     // Update the URL without reloading the page
-    navigate(`/game/${gameId}`, { replace: true });
+    navigate(`/game/${gameId}`);
   };
   
   // Start a local game (no WebSocket connection)
@@ -125,13 +126,19 @@ const Game: React.FC = () => {
       });
     } else {
       // For online games, send the move to the WebSocket server
+      // Only allow if it's this player's turn
       if (gameState.playerSymbol === gameState.currentPlayer) {
-        // Simulate making a move for development
         WebSocketService.simulateMakeMove(
           index, 
           gameState.currentPlayer, 
           gameState
         );
+      } else {
+        // If it's not the player's turn, show a toast message
+        toast({
+          title: "Not your turn",
+          description: "Please wait for your opponent to make a move",
+        });
       }
     }
   };
@@ -141,7 +148,7 @@ const Game: React.FC = () => {
     setGameState(null);
     setWaitingForOpponent(false);
     setIsLocalGame(false);
-    navigate("/game", { replace: true });
+    navigate("/game");
   };
   
   // Check for a winner

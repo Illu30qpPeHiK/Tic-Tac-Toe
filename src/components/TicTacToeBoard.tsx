@@ -16,16 +16,20 @@ const TicTacToeBoard: React.FC<TicTacToeBoardProps> = ({
   localPlayer,
   disabled = false,
 }) => {
-  const { board, currentPlayer, winner } = gameState;
+  const { board, currentPlayer, winner, playerSymbol } = gameState;
 
   // Calculate the class for a cell based on its state
   const getCellClasses = (index: number) => {
     const isOccupied = board[index] !== null;
     const isWinningCell = false; // TODO: Implement highlighting winning cells
+    const isPlayable = !isOccupied && !winner && !disabled && 
+      (localPlayer === undefined || localPlayer === currentPlayer || playerSymbol === currentPlayer);
 
     return `board-cell w-full h-full aspect-square ${
       isOccupied ? "occupied" : ""
-    } ${isWinningCell ? "winning" : ""}`;
+    } ${isWinningCell ? "winning" : ""} ${
+      isPlayable ? "playable hover:bg-gray-100" : ""
+    }`;
   };
 
   // Render the mark (X or O) for a cell
@@ -40,11 +44,14 @@ const TicTacToeBoard: React.FC<TicTacToeBoardProps> = ({
 
   // Determine if the cell is clickable
   const isCellClickable = (index: number) => {
+    // In local game or if it's this player's turn in online game
+    const isMyTurn = playerSymbol === undefined || playerSymbol === currentPlayer;
+    
     return (
       !winner &&
       board[index] === null &&
       !disabled &&
-      (localPlayer === undefined || localPlayer === currentPlayer)
+      isMyTurn
     );
   };
 
@@ -56,7 +63,10 @@ const TicTacToeBoard: React.FC<TicTacToeBoardProps> = ({
             key={index}
             className={getCellClasses(index)}
             onClick={() => isCellClickable(index) && onCellClick(index)}
-            style={{ opacity: isCellClickable(index) ? 1 : 0.8 }}
+            style={{ 
+              opacity: isCellClickable(index) ? 1 : 0.8,
+              cursor: isCellClickable(index) ? "pointer" : "not-allowed"
+            }}
           >
             {renderMark(index)}
           </div>
