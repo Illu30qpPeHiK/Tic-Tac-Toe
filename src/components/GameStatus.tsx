@@ -1,7 +1,7 @@
 
 import React from "react";
 import { GameState } from "@/services/WebSocketService";
-import { X, Circle, Clock } from "lucide-react";
+import { X, Circle, Clock, Trophy, RefreshCw } from "lucide-react";
 
 interface GameStatusProps {
   gameState: GameState;
@@ -30,7 +30,7 @@ const GameStatus: React.FC<GameStatusProps> = ({
     if (winner === "X") {
       return (
         <div className="flex items-center space-x-2 text-player-x font-bold">
-          <X className="h-5 w-5" />
+          <Trophy className="h-5 w-5" />
           <span>Player X wins!</span>
         </div>
       );
@@ -39,14 +39,19 @@ const GameStatus: React.FC<GameStatusProps> = ({
     if (winner === "O") {
       return (
         <div className="flex items-center space-x-2 text-player-o font-bold">
-          <Circle className="h-5 w-5" />
+          <Trophy className="h-5 w-5" />
           <span>Player O wins!</span>
         </div>
       );
     }
     
     if (winner === "draw") {
-      return <div className="font-bold">It's a draw!</div>;
+      return (
+        <div className="flex items-center space-x-2 font-bold text-gray-700">
+          <RefreshCw className="h-5 w-5" />
+          <span>It's a draw!</span>
+        </div>
+      );
     }
     
     // Game is ongoing, show current player

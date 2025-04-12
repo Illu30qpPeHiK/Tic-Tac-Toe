@@ -159,7 +159,6 @@ class WebSocketService {
     return this;
   }
   
-  // Simulate WebSocket connection for development
   simulateConnection() {
     console.log("Simulating WebSocket connection");
     setTimeout(() => {
@@ -167,7 +166,6 @@ class WebSocketService {
     }, 500);
   }
   
-  // Simulate creating a new game
   simulateCreateGame() {
     console.log("Simulating game creation");
     const gameId = Math.random().toString(36).substring(2, 8);
@@ -185,7 +183,6 @@ class WebSocketService {
     return gameId;
   }
   
-  // Simulate joining a game
   simulateJoinGame(gameId: string) {
     console.log("Simulating joining game:", gameId);
     
@@ -195,21 +192,19 @@ class WebSocketService {
         currentPlayer: "X", // X always goes first
         winner: null,
         gameId,
-        playerSymbol: "O"  // Joiner is always O and waits for X
+        playerSymbol: "O"  // Joiner is always O and waits for X's move
       });
       
-      // Notify that a second player joined
       this.callbacks.onPlayerJoined?.(gameId);
     }, 500);
   }
   
-  // Simulate making a move
   simulateMakeMove(index: number, player: "X" | "O", gameState: GameState) {
     console.log("Simulating move:", index, player);
     
-    // Only allow moves by the current player
     if (player !== gameState.currentPlayer) {
       console.log("Not your turn!");
+      this.callbacks.onError?.("It's not your turn");
       return;
     }
     
@@ -230,7 +225,6 @@ class WebSocketService {
     }, 300);
   }
   
-  // Check for winner (used in simulation)
   private checkWinner(board: Array<"X" | "O" | null>) {
     const winPatterns = [
       [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows

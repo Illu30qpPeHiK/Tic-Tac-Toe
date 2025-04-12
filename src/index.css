@@ -76,6 +76,10 @@
     @apply cursor-not-allowed;
   }
   
+  .board-cell.winning {
+    @apply shadow-lg border-2 border-amber-400;
+  }
+  
   .mark-x {
     @apply text-player-x font-bold animate-cell-mark;
   }
@@ -89,4 +93,17 @@
   .bg-gradient-page {
     @apply bg-gradient-to-br from-white via-blue-50 to-purple-50;
   }
+}
+
+@keyframes bounce-small {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.animate-bounce-small {
+  animation: bounce-small 1s infinite;
 }

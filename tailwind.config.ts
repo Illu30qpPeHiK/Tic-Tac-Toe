@@ -127,6 +127,14 @@ export default {
 					'50%': {
 						opacity: '0.5'
 					}
+				},
+				'bounce-small': {
+					'0%, 100%': {
+						transform: 'translateY(0)'
+					},
+					'50%': {
+						transform: 'translateY(-5px)'
+					}
 				}
 			},
 			animation: {
@@ -135,7 +143,8 @@ export default {
 				'fade-in': 'fade-in 0.3s ease-out',
 				'fade-out': 'fade-out 0.3s ease-out',
 				'cell-mark': 'cell-mark 0.2s ease-out forwards',
-				'pulse-slow': 'pulse 2s ease-in-out infinite'
+				'pulse-slow': 'pulse 2s ease-in-out infinite',
+				'bounce-small': 'bounce-small 1s ease-in-out infinite'
 			}
 		}
 	},
