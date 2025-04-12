@@ -1,73 +1,50 @@
-# Welcome to your Lovable project
+# 🎮 Tic-Tac-Toe Online
 
-## Project info
+## 🧩 About the Project
 
-**URL**: https://lovable.dev/projects/bdd63ec6-7054-424a-988d-11fb2b8e11af
+**Tic-Tac-Toe Online** is a modern, real-time multiplayer game built for two players over a local network. Powered by WebSockets, it delivers a smooth and synchronized experience with a clean, minimal interface. Whether you're looking to have a quick match or explore WebSocket-powered apps — this is a solid start.
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## ⚙️ Tech Stack
 
-**Use Lovable**
+- **Vite** – Fast build tool and dev server.
+- **React** – Component-based UI library.
+- **TypeScript** – Type-safe development experience.
+- **Tailwind CSS** – Utility-first CSS for rapid styling.
+- **shadcn/ui** – Accessible and modern UI components.
+- **WebSocket** – Real-time multiplayer support.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/bdd63ec6-7054-424a-988d-11fb2b8e11af) and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🚀 Getting Started Locally
 
-**Use your preferred IDE**
+```bash
+# Step 1: Clone the repository
+git clone https://github.com/Illu30qpPeHiK/Tic-Tac-Toe.git
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+# Step 2: Navigate into the project directory
+cd Tic-Tac-Toe
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+# Step 3: Install dependencies
+npm install or bun install
 
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+# Step 4: Start the development server
+npm run dev or bun run dev
 ```
 
-**Edit a file directly in GitHub**
+---
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 🎯 Features
 
-**Use GitHub Codespaces**
+- 2-player mode in real-time.
+- Game state synced via WebSocket.
+- Win/draw logic built-in.
+- Clean, intuitive interface.
+- Fully responsive and minimal design.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+---
 
-## What technologies are used for this project?
+## 💡 Project Purpose
 
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/bdd63ec6-7054-424a-988d-11fb2b8e11af) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes it is!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+This game was built to demonstrate how to create a real-time multiplayer app using modern frameworks and best practices. Great for learning, experimenting, or using as a foundation for larger multiplayer ideas.
